@@ -62,7 +62,10 @@ class Sneakers::Queue
   end
 
   def create_bunny_connection
-    Bunny.new(@opts[:amqp], :vhost => @opts[:vhost], :heartbeat => @opts[:heartbeat], :logger => Sneakers::logger)
+    verify_peer = @opt[:verify_peer].nil? ? true : @opts[:verify_peer]
+
+    Bunny.new(@opts[:amqp], :vhost => @opts[:vhost], :heartbeat => @opts[:heartbeat], :logger => Sneakers::logger, :verify_peer => verify_peer)
   end
+  
   private :create_bunny_connection
 end
